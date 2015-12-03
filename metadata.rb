@@ -1,0 +1,7 @@
+name             'evadnoob-debian-vm'
+maintainer       'YOUR_NAME'
+maintainer_email 'YOUR_EMAIL'
+license          'All rights reserved'
+description      'Installs/Configures evadnoob-debian-vm'
+long_description 'Installs/Configures evadnoob-debian-vm'
+version          '0.1.0'
