@@ -1,5 +1,5 @@
 
-["atool"].each do |v|
+["atool", "w3m"].each do |v|
   package v do
     action :install
   end
@@ -10,7 +10,7 @@ bash 'install ranger' do
   cwd '/tmp'
   code <<-EOF
 wget -O - http://nongnu.org/ranger/ranger-stable.tar.gz | tar xzf - 
-cd ranger-stable && sudo make install
+cd ranger-1.7.2 && sudo make install
 
 EOF
 end

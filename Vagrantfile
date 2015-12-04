@@ -7,11 +7,9 @@ VAGRANTFILE_API_VERSION = '2'
 Vagrant.require_version '>= 1.5.0'
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  # All Vagrant configuration is done here. The most common configuration
-  # options are documented and commented below. For a complete reference,
-  # please see the online documentation at vagrantup.com.
 
   config.vm.hostname = 'evadnoob-debian-vm-berkshelf'
+  config.vm.box = 'bento/debian-8.2'
 
   # Set the version of chef to install using the vagrant-omnibus plugin
   # NOTE: You will need to install the vagrant-omnibus plugin:
@@ -22,21 +20,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.omnibus.chef_version = 'latest'
   end
 
-  # Every Vagrant virtual environment requires a box to build off of.
-  # If this value is a shorthand to a box in Vagrant Cloud then
-  # config.vm.box_url doesn't need to be specified.
-  config.vm.box = 'bento/debian-8.2'
-
-
-  # Assign this VM to a host-only network IP, allowing you to access it
-  # via the IP. Host-only networks can talk to the host machine as well as
-  # any other machines on the same network, but cannot be accessed (through this
-  # network interface) by any external networks.
   config.vm.network :private_network, type: 'dhcp'
 
-  # Create a forwarded port mapping which allows access to a specific port
-  # within the machine from a port on the host machine. In the example below,
-  # accessing "localhost:8080" will access port 80 on the guest machine.
 
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
@@ -44,10 +29,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
 
-  # Provider-specific configuration so you can fine-tune various
-  # backing providers for Vagrant. These expose provider-specific options.
-  # Example for VirtualBox:
-  #
   config.vm.provider :virtualbox do |vb|
   #   # Don't boot with headless mode
      vb.gui = true
@@ -57,10 +38,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
          #vb.customize ["storagectl", :id, "--name", "IDEController", "--add", "ide"]
          #vb.customize ["storageattach", :id, "--storagectl", "IDE Controller", "--port", "0", "--device", "0", "--type", "dvddrive", "--medium", "emptydrive"]      
          #vb.customize ["modifyvm", :id, "--boot1", "disk", "--boot2", "dvd"]
+     vb.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
+     vb.customize ["setextradata", :id, "global GUI/Input/MachineShortcuts" "ScaleMode=C"]
    end
-  #
-  # View the documentation for the provider you're using for more
-  # information on available options.
+
 
   # The path to the Berksfile to use with Vagrant Berkshelf
   # config.berkshelf.berksfile_path = "./Berksfile"
@@ -69,25 +50,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # option to your ~/.vagrant.d/Vagrantfile file
   config.berkshelf.enabled = true
 
-  # An array of symbols representing groups of cookbook described in the Vagrantfile
-  # to exclusively install and copy to Vagrant's shelf.
-  # config.berkshelf.only = []
 
-  # An array of symbols representing groups of cookbook described in the Vagrantfile
-  # to skip installing and copying to Vagrant's shelf.
-  # config.berkshelf.except = []
 
   config.vm.provision :chef_solo do |chef|
-    chef.json = {
-      mysql: {
-        server_root_password: 'rootpass',
-        server_debian_password: 'debpass',
-        server_repl_password: 'replpass'
-      }
-    }
+   chef.cookbooks_path = ['cookbooks']
 
     chef.run_list = [
-      'recipe[evadnoob-debian-vm::default]'
+      'recipe[evadnoob-debian-vm::default]',
+      'recipe[evadnoob-debian-vm::dropbox]',
+      'recipe[evadnoob-debian-vm::ranger]'
     ]
   end
 end
