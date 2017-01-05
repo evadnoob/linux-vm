@@ -1,10 +1,19 @@
 # evadnoob-debian-vm-cookbook
 
-TODO: Enter the cookbook description here.
+a cookbook for managing packages in my personal linux machine, either a VM or a real machine.
+
+## Testing
+install virtualbox
+install vagrant (not from a repository), download directly
+install vagrant berkshelf plugin:
+* vagrant plugin install vagrant-berkshelf
+
+* Install chef-dk
+** https://downloads.chef.io/chef-dk
 
 ## Supported Platforms
 
-TODO: List your supported platforms.
+currently just debian 8[jessie]
 
 ## Attributes
 
@@ -39,4 +48,4 @@ Include `evadnoob-debian-vm` in your node's `run_list`:
 
 ## License and Authors
 
-Author:: YOUR_NAME (<YOUR_EMAIL>)
+Author:: David Boon (d_a_v_i_d.b_o_o_n@gmail.com) 

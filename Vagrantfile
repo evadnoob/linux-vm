@@ -58,7 +58,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     chef.run_list = [
       'recipe[evadnoob-debian-vm::default]',
       'recipe[evadnoob-debian-vm::dropbox]',
-      'recipe[evadnoob-debian-vm::ranger]'
+      'recipe[evadnoob-debian-vm::ranger]',
+      'recipe[evadnoob-debian-vm::i3]'
     ]
   end
 end

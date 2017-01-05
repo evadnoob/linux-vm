@@ -6,7 +6,6 @@
 #
 # All rights reserved - Do Not Redistribute
 #
-include_recipe 'apt'
 
 apt_repository 'google-chrome' do
   uri 'http://dl.google.com/linux/chrome/deb/'
@@ -19,8 +18,12 @@ end
 
 
 ["build-essential",
+ "autoconf",
  "unzip",
+ "bsdtar",
  "libsasl2-modules",
+ "mutt",
+ "mpv",
  "postgresql-client-9.4",
  "python-pip",
  "git",
@@ -37,14 +40,19 @@ end
  "tree",
  "tmux",
  "ttf-bitstream-vera",
- "fonts-hack-ttf",
+# "fonts-hack-ttf",
  "screenfetch",
+# "silversearch-ag",
  "scrot",
  "rxvt-unicode-256color",
  "zip",
  "zsh",
  "conky",
- "ncmpcpp", "mopidy", "mopidy-spotify"
+ #"ncmpcpp", "mopidy", "mopidy-spotify",
+ "w3m-img",
+ "aview",
+ "figlet", "lolcat","cpufrequtils",
+ "ncdu" # disk usage analyzer
 ].each do |v|
   package v do
     action :install
@@ -65,3 +73,13 @@ end
 
 
 # get dmenu 4.6 compile install
+# install rofi
+
+file '/etc/apt/sources.list.d/testing.list' do 
+content '
+deb http://mirror.steadfast.net/debian/ testing main contrib non-free
+deb-src http://mirror.steadfast.net/debian/ testing main contrib non-free
+deb http://ftp.us.debian.org/debian/ testing main contrib non-free
+deb-src http://ftp.us.debian.org/debian/ testing main contrib non-free
+'
+end 

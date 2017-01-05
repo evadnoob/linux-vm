@@ -10,7 +10,7 @@ bash 'install ranger' do
   cwd '/tmp'
   code <<-EOF
 wget -O - http://nongnu.org/ranger/ranger-stable.tar.gz | tar xzf - 
-cd ranger-1.7.2 && sudo make install
+cd ranger-1.8.0 && sudo make install
 
 EOF
 end
